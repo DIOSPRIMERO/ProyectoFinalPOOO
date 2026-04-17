@@ -1,0 +1,250 @@
+<svg viewBox="0 0 1500 1150" xmlns="http://www.w3.org/2000/svg" font-family="Consolas, monospace" font-size="10.5">
+
+  <!-- Background -->
+  <rect width="1500" height="1150" fill="#f4f6fb"/>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="1500" height="38" fill="#1a237e"/>
+  <text x="750" y="24" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="Arial,sans-serif">
+    Diagrama de Clases UML — Plataforma de Subastas Especializadas | SOFT-04/BISOFT-07 | UCENFOTEC 2026-C1
+  </text>
+
+  <!-- ═══════════════════ USUARIO (abstract) ═══════════════════ -->
+  <g id="cls_usuario">
+    <rect x="530" y="55" width="240" height="200" fill="white" stroke="#1a237e" stroke-width="2" rx="3"/>
+    <rect x="530" y="55" width="240" height="32" fill="#1a237e" rx="3"/>
+    <text x="650" y="67" text-anchor="middle" fill="white" font-family="Arial" font-size="10" font-style="italic">«abstract»</text>
+    <text x="650" y="81" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Usuario</text>
+    <line x1="530" y1="87" x2="770" y2="87" stroke="#1a237e" stroke-width="1"/>
+    <!-- attributes -->
+    <text x="538" y="101" fill="#333">- nombreCompleto : String</text>
+    <text x="538" y="114" fill="#333">- identificacion : String</text>
+    <text x="538" y="127" fill="#c62828" font-weight="bold">- fechaNacimiento : String</text>
+    <text x="538" y="140" fill="#333">- contrasena : String</text>
+    <text x="538" y="153" fill="#333">- correoElectronico : String</text>
+    <text x="538" y="166" fill="#333">- activo : boolean</text>
+    <line x1="530" y1="172" x2="770" y2="172" stroke="#ddd" stroke-width="1"/>
+    <!-- methods -->
+    <text x="538" y="186" fill="#555">+ calcularEdad() : int</text>
+    <text x="538" y="199" fill="#555">+ esMayorDeEdad() : boolean</text>
+    <text x="538" y="212" fill="#555">+ equals(Object) : boolean</text>
+    <text x="538" y="225" fill="#555">+ toString() : String</text>
+    <text x="538" y="247" fill="#c62828" font-size="9">* fechaNacimiento formato «aaaa-MM-dd»</text>
+  </g>
+
+  <!-- ═══════════════════ MODERADOR ═══════════════════ -->
+  <g id="cls_moderador">
+    <rect x="60" y="350" width="210" height="120" fill="white" stroke="#3949ab" stroke-width="2" rx="3"/>
+    <rect x="60" y="350" width="210" height="28" fill="#3949ab" rx="3"/>
+    <text x="165" y="369" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Moderador</text>
+    <line x1="60" y1="378" x2="270" y2="378" stroke="#3949ab" stroke-width="1"/>
+    <text x="68" y="393" fill="#888" font-style="italic">(hereda de Usuario)</text>
+    <line x1="60" y1="400" x2="270" y2="400" stroke="#ddd" stroke-width="1"/>
+    <text x="68" y="415" fill="#555">+ Moderador()</text>
+    <text x="68" y="428" fill="#555">+ Moderador(nombre,id,fecha,</text>
+    <text x="68" y="441" fill="#555">    pass,correo)</text>
+    <text x="68" y="454" fill="#555">+ toString() : String</text>
+  </g>
+
+  <!-- ═══════════════════ VENDEDOR ═══════════════════ -->
+  <g id="cls_vendedor">
+    <rect x="530" y="340" width="240" height="155" fill="white" stroke="#3949ab" stroke-width="2" rx="3"/>
+    <rect x="530" y="340" width="240" height="28" fill="#3949ab" rx="3"/>
+    <text x="650" y="359" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Vendedor</text>
+    <line x1="530" y1="368" x2="770" y2="368" stroke="#3949ab" stroke-width="1"/>
+    <text x="538" y="383" fill="#333">- puntuacion : double</text>
+    <text x="538" y="396" fill="#333">- direccion : String</text>
+    <line x1="530" y1="403" x2="770" y2="403" stroke="#ddd" stroke-width="1"/>
+    <text x="538" y="418" fill="#555">+ getPuntuacion() : double</text>
+    <text x="538" y="431" fill="#555">+ getDireccion() : String</text>
+    <text x="538" y="444" fill="#555">+ equals(Object) : boolean</text>
+    <text x="538" y="457" fill="#555">+ toString() : String</text>
+    <text x="538" y="470" fill="#555">+ getters / setters</text>
+  </g>
+
+  <!-- ═══════════════════ COLECCIONISTA ═══════════════════ -->
+  <g id="cls_coleccionista">
+    <rect x="1000" y="320" width="260" height="210" fill="white" stroke="#3949ab" stroke-width="2" rx="3"/>
+    <rect x="1000" y="320" width="260" height="28" fill="#3949ab" rx="3"/>
+    <text x="1130" y="339" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Coleccionista</text>
+    <line x1="1000" y1="348" x2="1260" y2="348" stroke="#3949ab" stroke-width="1"/>
+    <text x="1008" y="363" fill="#333">- puntuacion : double</text>
+    <text x="1008" y="376" fill="#333">- direccion : String</text>
+    <text x="1008" y="389" fill="#333">- intereses : ArrayList&lt;String&gt;</text>
+    <text x="1008" y="402" fill="#333">- coleccion : ArrayList&lt;ObjetoSubasta&gt;</text>
+    <text x="1008" y="415" fill="#333">- esModerador : boolean</text>
+    <line x1="1000" y1="422" x2="1260" y2="422" stroke="#ddd" stroke-width="1"/>
+    <text x="1008" y="437" fill="#555">+ getPuntuacion() : double</text>
+    <text x="1008" y="450" fill="#555">+ isEsModerador() : boolean</text>
+    <text x="1008" y="463" fill="#555">+ agregarAColeccion(obj)</text>
+    <text x="1008" y="476" fill="#555">+ equals(Object) : boolean</text>
+    <text x="1008" y="489" fill="#555">+ toString() : String</text>
+    <text x="1008" y="502" fill="#555">+ getters / setters</text>
+  </g>
+
+  <!-- ═══════════════════ OBJETO SUBASTA ═══════════════════ -->
+  <g id="cls_objeto">
+    <rect x="60" y="600" width="240" height="195" fill="white" stroke="#00695c" stroke-width="2" rx="3"/>
+    <rect x="60" y="600" width="240" height="28" fill="#00695c" rx="3"/>
+    <text x="180" y="619" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">ObjetoSubasta</text>
+    <line x1="60" y1="628" x2="300" y2="628" stroke="#00695c" stroke-width="1"/>
+    <text x="68" y="643" fill="#333">- nombre : String</text>
+    <text x="68" y="656" fill="#333">- descripcion : String</text>
+    <text x="68" y="669" fill="#333">- estado : String</text>
+    <text x="68" y="682" fill="#c62828" font-weight="bold">- fechaCompra : String</text>
+    <line x1="60" y1="689" x2="300" y2="689" stroke="#ddd" stroke-width="1"/>
+    <text x="68" y="704" fill="#555">+ calcularAntiguedad() : int</text>
+    <text x="68" y="717" fill="#555">+ calcularAntiguedadDetallada()</text>
+    <text x="68" y="730" fill="#555">    : String  ← «X anno, Y mes, Z dia»</text>
+    <text x="68" y="743" fill="#555">+ equals(Object) : boolean</text>
+    <text x="68" y="756" fill="#555">+ toString() : String</text>
+    <text x="68" y="770" fill="#c62828" font-size="9">* formato «aaaa-MM-dd»</text>
+    <text x="68" y="783" fill="#c62828" font-size="9">* toString usa calcularAntiguedadDetallada()</text>
+  </g>
+
+  <!-- ═══════════════════ OFERTA ═══════════════════ -->
+  <g id="cls_oferta">
+    <rect x="530" y="580" width="240" height="175" fill="white" stroke="#00695c" stroke-width="2" rx="3"/>
+    <rect x="530" y="580" width="240" height="28" fill="#00695c" rx="3"/>
+    <text x="650" y="599" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Oferta</text>
+    <line x1="530" y1="608" x2="770" y2="608" stroke="#00695c" stroke-width="1"/>
+    <text x="538" y="623" fill="#333">- nombreOferente : String</text>
+    <text x="538" y="636" fill="#333">- puntuacionOferente : double</text>
+    <text x="538" y="649" fill="#333">- precioOfertado : double</text>
+    <text x="538" y="662" fill="#333">- fechaOferta : LocalDate</text>
+    <line x1="530" y1="669" x2="770" y2="669" stroke="#ddd" stroke-width="1"/>
+    <text x="538" y="684" fill="#555">+ getNombreOferente() : String</text>
+    <text x="538" y="697" fill="#555">+ getPrecioOfertado() : double</text>
+    <text x="538" y="710" fill="#555">+ getFechaOferta() : LocalDate</text>
+    <text x="538" y="723" fill="#555">+ equals(Object) : boolean</text>
+    <text x="538" y="736" fill="#555">+ toString() : String</text>
+  </g>
+
+  <!-- ═══════════════════ SUBASTA ═══════════════════ -->
+  <g id="cls_subasta">
+    <rect x="990" y="570" width="280" height="360" fill="white" stroke="#e65100" stroke-width="2" rx="3"/>
+    <rect x="990" y="570" width="280" height="28" fill="#e65100" rx="3"/>
+    <text x="1130" y="589" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Subasta</text>
+    <line x1="990" y1="598" x2="1270" y2="598" stroke="#e65100" stroke-width="1"/>
+    <text x="998" y="613" fill="#333">- id : int</text>
+    <text x="998" y="626" fill="#333">- creador : Usuario</text>
+    <text x="998" y="639" fill="#c62828" font-weight="bold">- puntuacionCreador : double  ←</text>
+    <text x="998" y="652" fill="#333">- objetos : ArrayList&lt;ObjetoSubasta&gt;</text>
+    <text x="998" y="665" fill="#333">- ofertas : ArrayList&lt;Oferta&gt;</text>
+    <text x="998" y="678" fill="#333">- precioMinimo : double</text>
+    <text x="998" y="691" fill="#333">- estado : String</text>
+    <text x="998" y="704" fill="#333">- fechaVencimiento : String</text>
+    <text x="998" y="717" fill="#333">- moderadorAsignado : Coleccionista</text>
+    <text x="998" y="730" fill="#333">- ofertaGanadora : Oferta</text>
+    <text x="998" y="743" fill="#333">- orden : OrdenAdjudicacion</text>
+    <text x="998" y="756" fill="#333">- adjudicacionAceptada : boolean</text>
+    <text x="998" y="769" fill="#333">- entregaConfirmada : boolean</text>
+    <line x1="990" y1="776" x2="1270" y2="776" stroke="#ddd" stroke-width="1"/>
+    <text x="998" y="791" fill="#555">+ calcularTiempoRestante() : String</text>
+    <text x="998" y="804" fill="#555">+ getOfertaMayor() : double</text>
+    <text x="998" y="817" fill="#555">+ getId() : int</text>
+    <text x="998" y="830" fill="#555">+ equals(Object) : boolean</text>
+    <text x="998" y="843" fill="#555">+ toString() : String</text>
+    <text x="998" y="856" fill="#555">+ getters / setters</text>
+    <text x="998" y="873" fill="#c62828" font-size="9">← requerido explicitamente por consigna</text>
+    <text x="998" y="886" fill="#c62828" font-size="9">* tiempo = «Xd Xh Xm Xs»</text>
+    <text x="998" y="921" fill="#888" font-size="9">contadorId : int  {static}</text>
+  </g>
+
+  <!-- ═══════════════════ ORDEN ADJUDICACION ═══════════════════ -->
+  <g id="cls_orden">
+    <rect x="530" y="840" width="250" height="160" fill="white" stroke="#6a1b9a" stroke-width="2" rx="3"/>
+    <rect x="530" y="840" width="250" height="28" fill="#6a1b9a" rx="3"/>
+    <text x="655" y="859" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">OrdenAdjudicacion</text>
+    <line x1="530" y1="868" x2="780" y2="868" stroke="#6a1b9a" stroke-width="1"/>
+    <text x="538" y="883" fill="#333">- nombreGanador : String</text>
+    <text x="538" y="896" fill="#333">- fechaOrden : LocalDate</text>
+    <text x="538" y="909" fill="#333">- objetosAdjudicados : ArrayList</text>
+    <text x="538" y="922" fill="#333">- precioTotal : double</text>
+    <line x1="530" y1="929" x2="780" y2="929" stroke="#ddd" stroke-width="1"/>
+    <text x="538" y="944" fill="#555">+ getNombreGanador() : String</text>
+    <text x="538" y="957" fill="#555">+ getPrecioTotal() : double</text>
+    <text x="538" y="970" fill="#555">+ equals(Object) : boolean</text>
+    <text x="538" y="983" fill="#555">+ toString() : String</text>
+  </g>
+
+  <!-- ═══════════════════ CATEGORIA ═══════════════════ -->
+  <g id="cls_categoria">
+    <rect x="60" y="860" width="220" height="130" fill="white" stroke="#6a1b9a" stroke-width="2" rx="3"/>
+    <rect x="60" y="860" width="220" height="28" fill="#6a1b9a" rx="3"/>
+    <text x="170" y="879" text-anchor="middle" fill="white" font-family="Arial" font-size="12" font-weight="bold">Categoria</text>
+    <line x1="60" y1="888" x2="280" y2="888" stroke="#6a1b9a" stroke-width="1"/>
+    <text x="68" y="903" fill="#333">- id : int</text>
+    <text x="68" y="916" fill="#333">- nombre : String</text>
+    <text x="68" y="929" fill="#333">- descripcion : String</text>
+    <line x1="60" y1="936" x2="280" y2="936" stroke="#ddd" stroke-width="1"/>
+    <text x="68" y="951" fill="#555">+ getNombre() : String</text>
+    <text x="68" y="964" fill="#555">+ equals(Object) : boolean</text>
+    <text x="68" y="977" fill="#555">+ toString() : String</text>
+  </g>
+
+  <!-- ═══════════════════ HERENCIA arrows ═══════════════════ -->
+  <!-- Usuario -> Moderador (dashed + hollow triangle) -->
+  <line x1="650" y1="255" x2="650" y2="305" stroke="#1a237e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <line x1="650" y1="305" x2="165" y2="305" stroke="#1a237e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <line x1="165" y1="305" x2="165" y2="350" stroke="#1a237e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <polygon points="165,350 158,336 172,336" fill="white" stroke="#1a237e" stroke-width="1.5"/>
+
+  <!-- Usuario -> Vendedor (straight) -->
+  <line x1="650" y1="255" x2="650" y2="340" stroke="#1a237e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <polygon points="650,340 643,326 657,326" fill="white" stroke="#1a237e" stroke-width="1.5"/>
+
+  <!-- Usuario -> Coleccionista -->
+  <line x1="650" y1="255" x2="650" y2="280" stroke="#1a237e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <line x1="650" y1="280" x2="1130" y2="280" stroke="#1a237e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <line x1="1130" y1="280" x2="1130" y2="320" stroke="#1a237e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <polygon points="1130,320 1123,306 1137,306" fill="white" stroke="#1a237e" stroke-width="1.5"/>
+
+  <!-- extends label -->
+  <text x="860" y="275" fill="#1a237e" font-size="9" font-family="Arial" font-style="italic">«extends»</text>
+
+  <!-- Subasta ->creador (Usuario) association -->
+  <line x1="990" y1="630" x2="770" y2="170" stroke="#e65100" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="840" y="400" fill="#e65100" font-size="9" font-family="Arial">creador 1</text>
+
+  <!-- Subasta -> objetos (ObjetoSubasta) composition -->
+  <line x1="990" y1="665" x2="300" y2="680" stroke="#00695c" stroke-width="1.5"/>
+  <polygon points="300,680 312,674 312,686" fill="#00695c"/>
+  <text x="620" y="660" fill="#00695c" font-size="9" font-family="Arial">objetos 1..*</text>
+
+  <!-- Subasta -> ofertas (Oferta) composition -->
+  <line x1="990" y1="690" x2="770" y2="660" stroke="#00695c" stroke-width="1.5"/>
+  <polygon points="770,660 778,654 778,666" fill="#00695c"/>
+  <text x="870" y="650" fill="#00695c" font-size="9" font-family="Arial">ofertas *</text>
+
+  <!-- Subasta -> moderadorAsignado (Coleccionista) -->
+  <line x1="1270" y1="720" x2="1260" y2="490" stroke="#3949ab" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="1272" y="620" fill="#3949ab" font-size="9" font-family="Arial">moderador 0..1</text>
+
+  <!-- Subasta -> orden (OrdenAdjudicacion) -->
+  <line x1="1100" y1="930" x2="780" y2="920" stroke="#6a1b9a" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="890" y="910" fill="#6a1b9a" font-size="9" font-family="Arial">orden 0..1</text>
+
+  <!-- Coleccionista -> coleccion (ObjetoSubasta) -->
+  <line x1="1000" y1="455" x2="300" y2="660" stroke="#3949ab" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="580" y="530" fill="#3949ab" font-size="9" font-family="Arial">coleccion *</text>
+
+  <!-- OrdenAdjudicacion -> objetosAdjudicados -->
+  <line x1="530" y1="920" x2="300" y2="760" stroke="#6a1b9a" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="330" y="820" fill="#6a1b9a" font-size="9" font-family="Arial">adjudicados *</text>
+
+  <!-- ═══════════════════ LEGEND ═══════════════════ -->
+  <rect x="0" y="1105" width="1500" height="45" fill="#e8eaf6"/>
+  <text x="30" y="1124" fill="#333" font-family="Arial" font-size="11" font-weight="bold">Leyenda:</text>
+  <line x1="110" y1="1122" x2="150" y2="1122" stroke="#1a237e" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <polygon points="150,1122 143,1118 143,1126" fill="white" stroke="#1a237e" stroke-width="1.5"/>
+  <text x="155" y="1126" fill="#333" font-family="Arial" font-size="10">Herencia</text>
+  <line x1="260" y1="1122" x2="300" y2="1122" stroke="#00695c" stroke-width="1.5"/>
+  <polygon points="260,1122 272,1116 272,1128" fill="#00695c"/>
+  <text x="305" y="1126" fill="#333" font-family="Arial" font-size="10">Composicion</text>
+  <line x1="430" y1="1122" x2="470" y2="1122" stroke="#6a1b9a" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="475" y="1126" fill="#333" font-family="Arial" font-size="10">Asociacion / Dependencia</text>
+  <rect x="700" y="1112" width="12" height="12" fill="#c62828"/>
+  <text x="717" y="1124" fill="#c62828" font-family="Arial" font-size="10" font-weight="bold">Cambio requerido por consigna (fechaNacimiento, fechaCompra, puntuacionCreador)</text>
+  <text x="1380" y="1140" fill="#888" font-family="Arial" font-size="9">Steven Mendez Jimenez | 2026-C1</text>
+</svg>

@@ -1,0 +1,312 @@
+====================================================================
+CASOS DE PRUEBA - Plataforma de Subastas Especializadas
+SOFT-04 / BISOFT-07 - UCENFOTEC
+====================================================================
+Estos casos de prueba verifican las reglas de negocio y funcionalidades
+principales del sistema. Ejecutarlos en orden para mejores resultados.
+====================================================================
+
+════════════════════════════════════════════════════════════════════
+MODULO 1: REGISTRO Y CONTROL DE MODERADOR
+════════════════════════════════════════════════════════════════════
+
+CP-01: Verificar existencia de moderador al iniciar
+  - Precondicion: Sistema sin datos
+  - Accion: Iniciar la aplicacion
+  - Resultado esperado: El sistema detecta que no hay moderador
+    y obliga al usuario a registrar uno antes de continuar.
+  - Clase del metodo: ControladorUsuario.existeModerador()
+
+CP-02: Registrar moderador menor de edad
+  - Datos: anioNacimiento = 2015
+  - Resultado esperado: "ERROR: El moderador debe ser mayor de edad."
+  - Clase del metodo: ControladorUsuario.registrarModerador()
+
+CP-03: Registrar moderador valido
+  - Datos: nombre="Ana Gomez", id="1-0001-0001", anioNac=1985,
+    contra="admin123", correo="ana@test.com"
+  - Resultado esperado: "Moderador registrado correctamente."
+  - Verificacion: existeModerador() retorna true
+
+CP-04: Intentar registrar segundo moderador
+  - Precondicion: CP-03 completado
+  - Datos: cualquier dato valido
+  - Resultado esperado: "ERROR: Ya existe un moderador en el sistema."
+
+════════════════════════════════════════════════════════════════════
+MODULO 2: REGISTRO DE USUARIOS
+════════════════════════════════════════════════════════════════════
+
+CP-05: Registrar vendedor valido
+  - Datos: nombre="Luis Torres", id="1-0002-0002", anioNac=1990,
+    contra="pass1", correo="luis@test.com", direccion="San Jose"
+  - Resultado esperado: "Vendedor registrado correctamente."
+
+CP-06: Registrar coleccionista valido
+  - Datos: nombre="Maria Ruiz", id="1-0003-0003", anioNac=1995,
+    contra="pass2", correo="maria@test.com", direccion="Alajuela"
+  - Resultado esperado: "Coleccionista registrado correctamente."
+
+CP-07: Registrar usuario menor de edad
+  - Datos: anioNacimiento = 2010
+  - Resultado esperado: "ERROR: Debe ser mayor de edad para registrarse."
+
+CP-08: Registrar usuario con ID duplicado
+  - Precondicion: CP-05 completado
+  - Datos: id="1-0002-0002" (mismo que Luis Torres)
+  - Resultado esperado: "ERROR: Ya existe un usuario con ese ID."
+
+CP-09: Registrar segundo coleccionista (para pruebas de oferta)
+  - Datos: nombre="Carlos Mora", id="1-0004-0004", anioNac=1988,
+    contra="pass3", correo="carlos@test.com", direccion="Cartago"
+  - Resultado esperado: "Coleccionista registrado correctamente."
+
+════════════════════════════════════════════════════════════════════
+MODULO 3: INICIO DE SESION Y AUTENTICACION
+════════════════════════════════════════════════════════════════════
+
+CP-10: Iniciar sesion con credenciales correctas
+  - Datos: id="1-0003-0003", contra="pass2"
+  - Resultado esperado: autenticar() retorna objeto Usuario no nulo.
+
+CP-11: Iniciar sesion con contrasena incorrecta
+  - Datos: id="1-0003-0003", contra="incorrecta"
+  - Resultado esperado: autenticar() retorna null.
+
+CP-12: Iniciar sesion con ID inexistente
+  - Datos: id="9-9999-9999", contra="cualquiera"
+  - Resultado esperado: autenticar() retorna null.
+
+CP-13: Iniciar sesion con usuario inactivo
+  - Precondicion: inactivarUsuario("1-0002-0002")
+  - Datos: id="1-0002-0002", contra="pass1"
+  - Resultado esperado: autenticar() retorna null.
+
+════════════════════════════════════════════════════════════════════
+MODULO 4: GESTION DE USUARIOS (Moderador)
+════════════════════════════════════════════════════════════════════
+
+CP-14: Modificar nombre de un usuario
+  - Datos: id="1-0002-0002", nuevoNombre="Luis A. Torres"
+  - Resultado esperado: "Usuario modificado correctamente."
+  - Verificacion: buscarPorId retorna usuario con nombre actualizado.
+
+CP-15: Modificar usuario inexistente
+  - Datos: id="9-9999-9999"
+  - Resultado esperado: "ERROR: No existe un usuario con ese ID"
+
+CP-16: Inactivar un coleccionista
+  - Datos: id="1-0004-0004"
+  - Resultado esperado: "Usuario inactivado correctamente."
+
+CP-17: Intentar inactivar al moderador del sistema
+  - Datos: id="1-0001-0001"
+  - Resultado esperado: "ERROR: No se puede inactivar al moderador del sistema."
+
+CP-18: Reactivar usuario previamente inactivado
+  - Datos: id="1-0004-0004"
+  - Resultado esperado: "Usuario activado correctamente."
+
+════════════════════════════════════════════════════════════════════
+MODULO 5: CATEGORIAS
+════════════════════════════════════════════════════════════════════
+
+CP-19: Crear categoria valida
+  - Datos: nombre="Monedas Antiguas", descripcion="Monedas de coleccion"
+  - Resultado esperado: "Categoria 'Monedas Antiguas' creada correctamente."
+
+CP-20: Crear categoria con nombre duplicado
+  - Datos: nombre="Monedas Antiguas" (misma del CP-19)
+  - Resultado esperado: "ERROR: Ya existe una categoria con ese nombre."
+
+CP-21: Crear categoria con nombre vacio
+  - Datos: nombre=""
+  - Resultado esperado: "ERROR: El nombre de la categoria no puede estar vacio."
+
+════════════════════════════════════════════════════════════════════
+MODULO 6: ASIGNACION DE MODERADORES DE SUBASTA
+════════════════════════════════════════════════════════════════════
+
+CP-22: Asignar coleccionista como moderador de subastas
+  - Datos: id="1-0003-0003" (Maria Ruiz)
+  - Resultado esperado: "Coleccionista Maria Ruiz designado como moderador de subastas."
+
+CP-23: Asignar rol moderador a vendedor (debe fallar)
+  - Datos: id="1-0002-0002" (Luis Torres, vendedor)
+  - Resultado esperado: "ERROR: Solo los coleccionistas pueden ser designados..."
+
+CP-24: Asignar rol moderador a coleccionista ya moderador
+  - Datos: id="1-0003-0003" (ya es moderador por CP-22)
+  - Resultado esperado: "Este coleccionista ya tiene el rol de moderador de subastas."
+
+════════════════════════════════════════════════════════════════════
+MODULO 7: CREACION DE SUBASTAS
+════════════════════════════════════════════════════════════════════
+
+CP-25: Intentar crear subasta como moderador del sistema
+  - Precondicion: Sesion como Ana Gomez (Moderador)
+  - Resultado esperado: "ERROR: El moderador no puede crear subastas"
+
+CP-26: Crear subasta sin objetos
+  - Precondicion: Sesion como Luis Torres (Vendedor)
+  - Datos: objetos = lista vacia
+  - Resultado esperado: "ERROR: La subasta debe tener al menos un objeto"
+
+CP-27: Crear subasta valida como vendedor
+  - Precondicion: Sesion como Luis Torres (Vendedor)
+  - Datos: 1 objeto con nombre="Reloj Antiguo", estado="Antiguo sin abrir",
+    anioCompra=1950, precioMinimo=500.0, fechaVencimiento="30/12/2026"
+  - Resultado esperado: "Subasta #1 creada correctamente."
+
+CP-28: Crear subasta valida como coleccionista
+  - Precondicion: Sesion como Carlos Mora (Coleccionista)
+    Primero agregar objeto a su coleccion: col.agregarAColeccion(obj)
+  - Resultado esperado: "Subasta #2 creada correctamente."
+
+CP-29: Coleccionista intenta subastar objeto que NO es de su coleccion
+  - Precondicion: Sesion como Carlos Mora
+  - Datos: objeto que no esta en la coleccion de Carlos
+  - Resultado esperado: "ERROR: El coleccionista solo puede subastar objetos de su coleccion."
+
+════════════════════════════════════════════════════════════════════
+MODULO 8: CREACION DE OFERTAS
+════════════════════════════════════════════════════════════════════
+
+CP-30: Ofertar en subasta inexistente
+  - Datos: idSubasta=999
+  - Resultado esperado: "ERROR: No existe una subasta con ese ID"
+
+CP-31: Vendedor intenta hacer oferta (debe fallar)
+  - Precondicion: Subasta #1 activa
+  - Datos: oferente=Luis Torres (Vendedor)
+  - Resultado esperado: "ERROR: Los vendedores no pueden hacer ofertas"
+
+CP-32: Moderador intenta hacer oferta (debe fallar)
+  - Datos: oferente=Ana Gomez (Moderador)
+  - Resultado esperado: "ERROR: El moderador no puede hacer ofertas"
+
+CP-33: Creador de subasta intenta ofertar en su propia subasta
+  - Precondicion: Subasta #2 creada por Carlos Mora
+  - Datos: oferente=Carlos Mora, idSubasta=2
+  - Resultado esperado: "ERROR: El creador no puede ofertar en su propia subasta"
+
+CP-34: Oferta con monto menor al minimo
+  - Precondicion: Subasta #1 con precioMinimo=500.0
+  - Datos: monto=100.0, oferente=Maria Ruiz (Coleccionista)
+  - Resultado esperado: "ERROR: El monto es menor al precio minimo ($500.0)."
+
+CP-35: Oferta valida
+  - Datos: idSubasta=1, oferente=Maria Ruiz, monto=750.0
+  - Resultado esperado: "Oferta de $750.0 registrada en la subasta #1."
+
+CP-36: Segunda oferta valida en la misma subasta
+  - Datos: idSubasta=1, oferente=Carlos Mora, monto=900.0
+  - Resultado esperado: "Oferta de $900.0 registrada en la subasta #1."
+
+════════════════════════════════════════════════════════════════════
+MODULO 9: CIERRE, ADJUDICACION Y ORDEN DE COMPRA
+════════════════════════════════════════════════════════════════════
+
+CP-37: Cerrar subasta activa
+  - Datos: idSubasta=1
+  - Resultado esperado: "Subasta #1 marcada como cerrada."
+  - Verificacion: subasta.getEstado() == "Cerrada"
+
+CP-38: Intentar cerrar subasta ya cerrada
+  - Datos: idSubasta=1
+  - Resultado esperado: "ERROR: Solo se pueden cerrar subastas activas."
+
+CP-39: Adjudicar ganador de subasta cerrada
+  - Precondicion: CP-37 completado, hay 2 ofertas: $750 y $900
+  - Datos: idSubasta=1
+  - Resultado esperado: "Subasta #1 adjudicada a: Carlos Mora con oferta de $900.0"
+  - Verificacion: subasta.getOfertaGanadora().getPrecioOfertado() == 900.0
+
+CP-40: Intentar adjudicar subasta no cerrada
+  - Datos: idSubasta=2 (aun activa)
+  - Resultado esperado: "ERROR: Solo se pueden adjudicar subastas cerradas."
+
+CP-41: Aceptar adjudicacion como ganador correcto
+  - Precondicion: CP-39 completado, ganador es Carlos Mora
+  - Datos: idSubasta=1, nombreGanador="Carlos Mora"
+  - Resultado esperado: Texto de la OrdenAdjudicacion con datos del ganador,
+    fecha, objetos y precio total.
+  - Verificacion: subasta.isAdjudicacionAceptada() == true
+               subasta.getEstado() == "Completada"
+               subasta.getOrden() != null
+
+CP-42: Intentar aceptar adjudicacion con usuario incorrecto
+  - Datos: idSubasta=1, nombreGanador="Maria Ruiz" (no es el ganador)
+  - Resultado esperado: "ERROR: Usted no es el ganador de esta subasta."
+
+CP-43: Confirmar entrega de objetos
+  - Precondicion: CP-41 completado
+  - Datos: idSubasta=1
+  - Resultado esperado: "Entrega confirmada para la subasta #1. Ya puede calificar..."
+
+CP-44: Calificar como ganador (1-5)
+  - Precondicion: CP-43 completado
+  - Datos: idSubasta=1, calificacion=5, esGanador=true
+  - Resultado esperado: "Calificacion del ganador registrada: 5/5"
+
+CP-45: Calificar con valor fuera de rango
+  - Datos: calificacion=6
+  - Resultado esperado: "ERROR: La calificacion debe estar entre 1 y 5."
+
+════════════════════════════════════════════════════════════════════
+MODULO 10: LISTADOS Y CONSULTAS
+════════════════════════════════════════════════════════════════════
+
+CP-46: Listar todos los usuarios
+  - Resultado esperado: Lista numerada con todos los usuarios registrados,
+    incluyendo nombre, ID, edad calculada, correo y estado (activo/inactivo).
+
+CP-47: Listar subastas del sistema
+  - Resultado esperado: Listado con informacion de cada subasta incluyendo
+    ID, creador, precio minimo, estado, fecha vencimiento, numero de objetos,
+    numero de ofertas y oferta mayor actual.
+
+CP-48: Listar mis subastas (como vendedor Luis Torres)
+  - Resultado esperado: Solo muestra la subasta #1 creada por Luis Torres.
+
+CP-49: Listar mis participaciones como oferente (como Carlos Mora)
+  - Resultado esperado: Muestra las subastas donde Carlos ha ofertado.
+
+CP-50: Calcular tiempo restante de una subasta
+  - Datos: Subasta con fechaVencimiento="30/12/2026"
+  - Resultado esperado: Cadena con formato "Xd  Yh  Zm  Ws"
+    con valores coherentes al tiempo actual.
+
+════════════════════════════════════════════════════════════════════
+MODULO 11: LECTURA DE CONFIGURACION DESDE ARCHIVO
+════════════════════════════════════════════════════════════════════
+
+CP-51: Leer archivo db.properties existente
+  - Precondicion: Archivo db.properties en la raiz del proyecto
+  - Accion: Llamar ConexionDB.getConexion()
+  - Resultado esperado: No se lanza IOException al leer el archivo.
+    Los datos del servidor, BD, usuario y contrasena se leen correctamente.
+
+CP-52: Intentar leer db.properties inexistente
+  - Precondicion: Eliminar o renombrar el archivo db.properties
+  - Accion: Llamar ConexionDB.getConexion()
+  - Resultado esperado: Se lanza IOException con mensaje de archivo no encontrado.
+
+════════════════════════════════════════════════════════════════════
+RESUMEN DE COBERTURA
+════════════════════════════════════════════════════════════════════
+
+Total de casos de prueba: 52
+Reglas de negocio cubiertas:
+  [x] RN1: Verificacion de moderador al iniciar
+  [x] RN2: Unico moderador en el sistema
+  [x] RN3: Moderador no puede participar en subastas/ofertas
+  [x] RN4: Vendedor no puede hacer ofertas
+  [x] RN5: Creador coleccionista no puede ofertar en su subasta
+  [x] RN6: Subasta requiere al menos un objeto
+  [x] RN7: Mayor de edad para registrarse
+  [x] RN8: Moderador debe ser mayor de edad
+  [x] RN9: Coleccionista solo puede subastar objetos de su coleccion
+  [x] RN10: Validaciones logicas adicionales (duplicados, inactivos, etc.)
+
+Funcionalidades cubiertas: 1-17 de la consigna (todas).

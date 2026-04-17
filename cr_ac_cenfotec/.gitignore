@@ -1,0 +1,25 @@
+# Credenciales de base de datos - NUNCA subir al repositorio
+db.properties
+
+# Compilados
+target/
+*.class
+*.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
